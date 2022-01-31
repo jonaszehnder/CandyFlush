@@ -34,4 +34,8 @@ public class Field extends Objects
         }
         getImage().scale(getImage().getWidth()/10, getImage().getHeight()/10);
     }
+    
+    public Colour getColour(){
+        return COLOUR;
+    }
 }

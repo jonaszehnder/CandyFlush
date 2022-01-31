@@ -9,7 +9,7 @@ import greenfoot.*;  // (World, Actor, GreenfootImage, Greenfoot and MouseInfo)
 public class ShuffleButton extends Objects
 {
     public ShuffleButton(){
-        getImage().scale(getImage().getWidth()/8, getImage().getHeight()/8);
+        getImage().scale(getImage().getWidth()/15, getImage().getHeight()/15);
     }
     
     public void act() {
