@@ -71,6 +71,7 @@ public class MyWorld extends World
                     }
                     */
             }
-            return true;
         }
+        return true;
     }
+}
