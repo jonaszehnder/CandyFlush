@@ -1,0 +1,14 @@
+#BlueJ class context
+comment0.target=CopyOfMyWorld
+comment0.text=\r\n\ CandyFlush\r\n\ \r\n\ @author\ Jonas\ Zehnder\ &\ Daniel\r\n\ @version\ 0.1\r\n
+comment1.params=
+comment1.target=CopyOfMyWorld()
+comment2.params=
+comment2.target=void\ prepare()
+comment3.params=
+comment3.target=void\ shuffleFields()
+comment4.params=
+comment4.target=void\ checkFields()
+comment5.params=dir
+comment5.target=java.util.ArrayList\ checkField(char)
+numComments=6

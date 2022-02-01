@@ -77,13 +77,13 @@ public class MyWorld extends World
     private void checkFields(){
         toDelete.clear();
         int countFieldsInRow;
-        Colour currentColour;
+        Colour currentColour; 
         //check horizontally
-        for(int y = 0; y < fields[0].length; y++){
+        for(int y = 0; y < fields.length; y++){
             for(int x = 0; x < fields[0].length; x++){
                 countFieldsInRow = 0;
-                currentColour = fields[x][y].getColour();
-                for(int i = 0; i < fields.length - x; i++){
+                currentColour = fields[x][y].getColour();   
+                for(int i = 0; i < fields[0].length - x; i++){
                     if(fields[x + i][y].getColour() == currentColour){
                         countFieldsInRow++;
                     } else {
@@ -97,7 +97,7 @@ public class MyWorld extends World
         }
         //check vertically
         for(int x = 0; x < fields[0].length; x++){
-            for(int y = 0; y < fields[0].length; y++){
+            for(int y = 0; y < fields.length; y++){
                 countFieldsInRow = 0;
                 currentColour = fields[x][y].getColour();
                 for(int i = 0; i < fields.length - y; i++){
