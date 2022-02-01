@@ -10,23 +10,23 @@ import java.util.*;
 
 public class MyWorld extends World
 {
-    public Field[][] fields = new Field[8][8];
+    public Field[][] fields = new Field[4][4];
     private Field[][] fieldsTemp = new Field[8][8];
     public ShuffleButton shuffleButton = new ShuffleButton();
+    private ArrayList<Field> toDelete = new ArrayList<Field>();
     
     public MyWorld()
     {
         super(800, 850, 1);
         prepare();
+        checkFields();
     }
     private void prepare(){
-        int arrayCounter = 0;
-        for(int x = 1; x <= 8; x++){
-            for(int y = 1; y <= 8; y++){
+        for(int x = 0; x < fields.length; x++){
+            for(int y = 0; y < fields[0].length; y++){
                 Field myField = new Field();
-                addObject(myField, (x * 90),(y * 90));
+                addObject(myField, (x * 90 + 90),(y * 90 + 90));
                 fields[x][y] = myField;
-                arrayCounter++;
             }
         }
         addObject(shuffleButton, 400, 800);
@@ -73,5 +73,68 @@ public class MyWorld extends World
             }
         }
         return true;
+    }
+    private void checkFields(){
+        toDelete.clear();
+        int countFieldsInRow;
+        Colour currentColour;
+        //check horizontally
+        for(int y = 0; y < fields[0].length; y++){
+            for(int x = 0; x < fields[0].length; x++){
+                countFieldsInRow = 0;
+                currentColour = fields[x][y].getColour();
+                for(int i = 0; i < fields.length - x; i++){
+                    if(fields[x + i][y].getColour() == currentColour){
+                        countFieldsInRow++;
+                    } else {
+                        break;
+                    }
+                }
+                if(countFieldsInRow >= 3){
+                    markToDeleteFields(x, y, countFieldsInRow, 'h');
+                }
+            }
+        }
+        //check vertically
+        for(int x = 0; x < fields[0].length; x++){
+            for(int y = 0; y < fields[0].length; y++){
+                countFieldsInRow = 0;
+                currentColour = fields[x][y].getColour();
+                for(int i = 0; i < fields.length - y; i++){
+                    if(fields[x][y + i].getColour() == currentColour){
+                        countFieldsInRow++;
+                    } else {
+                        break;
+                    }
+                }
+                if(countFieldsInRow >= 3){
+                    markToDeleteFields(x, y, countFieldsInRow, 'v');
+                }
+            }
+        }
+        deleteFields();
+    }
+    private void markToDeleteFields(int x, int y, int range, char direction){
+        int j = 0;
+        for(int i = 0; i < range; i++){
+            if(direction == 'v'){
+                j = i;
+                i = 0;
+            }
+            if(!toDelete.contains(fields[x + i][y + j])){
+                toDelete.add(fields[x + i][y + j]);
+                //removeObject(fields[x + i][y + j]);
+            }
+        }
+    }
+    private void deleteFields(){
+        for(int i = 0; i < toDelete.size(); i++){
+            removeObject(toDelete.get(i));
+        }
+    }
+    private void checkFieldsBelow(){
+        for(int x = 0; x < fields.length; x++){
+            
+        }
     }
 }
