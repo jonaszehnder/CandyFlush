@@ -5,13 +5,14 @@ import java.util.*;
  * CandyFlush
  * 
  * @author Jonas Zehnder & Daniel
- * @version 0.1
+ * @version 1
  */
 
 public class CandyFlushWorld extends World
 {
-    public Field[][] fields = new Field[8][8];
-    private Field[][] fieldsTemp = new Field[8][8];
+    private int gridSize = 8;
+    public Field[][] fields = new Field[gridSize][gridSize];
+    private Field[][] fieldsTemp = new Field[gridSize][gridSize];
     public ShuffleButton shuffleButton = new ShuffleButton();
     private ArrayList<Field> toDelete = new ArrayList<Field>();
     private Field fieldOneTemp;
@@ -22,8 +23,11 @@ public class CandyFlushWorld extends World
     {
         super(800, 850, 1);
         prepare();
+        checkFields('v');
+        checkFields('h');
     }
     private void prepare(){
+        //generierung Candy bei Spielinitialisierung
         for(int x = 0; x < fields.length; x++){
             for(int y = 0; y < fields[0].length; y++){
                 Field myField = new Field(x, y);
@@ -31,6 +35,7 @@ public class CandyFlushWorld extends World
                 fields[x][y] = myField;
             }
         }
+        //Score und Turn Anzeige werden zur World hinzugefügt
         addObject(shuffleButton, 400, 800);
         Score myScore = new Score();
         points = 0;
@@ -40,10 +45,12 @@ public class CandyFlushWorld extends World
         addObject(myTurns, 60, 10);
     }
     public void shuffleFields(){
+        //Candy wird neu gemischt
         fieldsTemp = fields;
         Random random = new Random();
         for (int i = fields.length - 1; i > 0; i--) {
             for (int j = fields[i].length - 1; j > 0; j--) {
+                //Jede Position wird neu zufällig vergeben
                 int m = random.nextInt(i + 1);
                 int n = random.nextInt(j + 1);
                 Field temp = fields[i][j];
@@ -53,19 +60,22 @@ public class CandyFlushWorld extends World
         }
         for(int x = 0; x < fields.length; x++){
             for(int y = 0; y < fields.length; y++){
+                //Location wird nun gesetzt
                 fields[x][y].setLocation(fieldsTemp[x][y].getX(), fieldsTemp[x][y].getY());
             } 
         }
     }
     public void checkFields(char dir){
+        //Ueberprüfen ob eine Candyreihe existiert
         toDelete.clear();
         int countFieldsInRow;
         Colour currentColour;
         int z;
         for(int y = 0; y < fields.length; y++){
             for(int x = 0; x < fields.length; x++){
-                if(fields[x][x] != null){
+                if(fields[x][y] != null){
                     if(dir == 'v'){
+                        //X und Y Achse werden getauscht für Vertikale ueberprüfung
                         z = x;
                         x = y;
                         y = z;
@@ -80,6 +90,7 @@ public class CandyFlushWorld extends World
                         }
                     }
                     if(countFieldsInRow > 2){
+                        //markToDelete wird mit Candyreihe aufgerufen
                         markToDeleteFields(x, y, countFieldsInRow, 'h');
                     }
                 }
@@ -99,6 +110,7 @@ public class CandyFlushWorld extends World
                 i = 0;
             }
             if(!toDelete.contains(fields[x + i][y + j])){
+                //Candyreihe wird zum Array toDelete hinzugefügt (X und Y sind die Startposition)
                 toDelete.add(fields[x + i][y + j]);
                 //removeObject(fields[x + i][y + j]);
             }
@@ -110,6 +122,7 @@ public class CandyFlushWorld extends World
         int xTempGrid;
         int yTempGrid;
         for(int i = 0; i < toDelete.size(); i++){
+            //Candy in toDelete wird gelöscht
             fields[toDelete.get(i).getXPlace()][toDelete.get(i).getYPlace()] = null;
             xTemp = toDelete.get(i).getXPlace();
             yTemp = toDelete.get(i).getYPlace();
@@ -129,12 +142,14 @@ public class CandyFlushWorld extends World
         }
         else{
             fieldTwoTemp = field;
+            //ueberprüfung ob ein Nachbarsfeld angewählt wurde (fuer den Tausch)
             if(fieldOneTemp.getXPlace() + 1 == fieldTwoTemp.getXPlace() && fieldOneTemp.getYPlace() == fieldTwoTemp.getYPlace() || 
                fieldOneTemp.getXPlace() - 1 == fieldTwoTemp.getXPlace() && fieldOneTemp.getYPlace() == fieldTwoTemp.getYPlace() ||
                fieldOneTemp.getYPlace() + 1 == fieldTwoTemp.getYPlace() && fieldOneTemp.getXPlace() == fieldTwoTemp.getXPlace() || 
                fieldOneTemp.getYPlace() - 1 == fieldTwoTemp.getYPlace() && fieldOneTemp.getXPlace() == fieldTwoTemp.getXPlace()){
                 swapFields(); 
             }else{
+                //TempFields werden zurückgesetzt
                 fieldOneTemp.setColour(fieldOneTemp.getColour());
                 fieldTwoTemp.setColour(fieldTwoTemp.getColour());
                 fieldOneTemp = null;
@@ -143,6 +158,7 @@ public class CandyFlushWorld extends World
         }
     }
     private void swapFields(){
+        //Farbe der Candy wird getauscht
         turns--;
         Field fieldTemp = new Field(0, 0);
         fieldTemp.setColour(fieldOneTemp.getColour());
@@ -152,6 +168,7 @@ public class CandyFlushWorld extends World
         fieldTwoTemp = null;
         checkFields('h');
         if(turns == 0){
+            //Wenn keine Turns uebrig sind, ist das Spiel vorbei
             GameOver gameOverScreen = new GameOver();
             addObject(gameOverScreen, 390, 350);
         }

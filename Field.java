@@ -9,6 +9,7 @@ public class Field extends Actor
         this.x = x;
         this.y = y;
         switch(Greenfoot.getRandomNumber(5)){
+            //Zufällige Generierung der Farben
             case 0:
                 setColour(Colour.RED);
                 break;
@@ -37,6 +38,7 @@ public class Field extends Actor
         return COLOUR;
     }
     public void setColour(Colour colour){
+        //Setzen des Bildes nach Candy
         switch(colour){
             case RED: 
                 this.COLOUR = Colour.RED; 
@@ -62,9 +64,11 @@ public class Field extends Actor
         getImage().scale(getImage().getWidth()/10, getImage().getHeight()/10);
     }
     public int getXPlace(){
+        //getter fuer xPlace
         return this.x;
     }
     public int getYPlace(){
+        //getter fuer yPlace
         return this.y;
     }
 }
