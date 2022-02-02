@@ -1,8 +1,15 @@
 #BlueJ class context
 comment0.target=Field
-comment0.text=\r\n\ Write\ a\ description\ of\ class\ Fields\ here.\r\n\ \r\n\ @author\ (your\ name)\ \r\n\ @version\ (a\ version\ number\ or\ a\ date)\r\n
-comment1.params=
-comment1.target=Field()
+comment1.params=x\ y
+comment1.target=Field(int,\ int)
 comment2.params=
-comment2.target=Colour\ getColour()
-numComments=3
+comment2.target=void\ act()
+comment3.params=
+comment3.target=Colour\ getColour()
+comment4.params=colour
+comment4.target=void\ setColour(Colour)
+comment5.params=
+comment5.target=int\ getXPlace()
+comment6.params=
+comment6.target=int\ getYPlace()
+numComments=7

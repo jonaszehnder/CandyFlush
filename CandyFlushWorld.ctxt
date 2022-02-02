@@ -1,0 +1,20 @@
+#BlueJ class context
+comment0.target=CandyFlushWorld
+comment0.text=\r\n\ CandyFlush\r\n\ \r\n\ @author\ Jonas\ Zehnder\ &\ Daniel\r\n\ @version\ 0.1\r\n
+comment1.params=
+comment1.target=CandyFlushWorld()
+comment2.params=
+comment2.target=void\ prepare()
+comment3.params=
+comment3.target=void\ shuffleFields()
+comment4.params=dir
+comment4.target=void\ checkFields(char)
+comment5.params=x\ y\ range\ dir
+comment5.target=void\ markToDeleteFields(int,\ int,\ int,\ char)
+comment6.params=
+comment6.target=void\ deleteFields()
+comment7.params=field
+comment7.target=void\ setClickedTiles(Field)
+comment8.params=
+comment8.target=void\ swapFields()
+numComments=9
